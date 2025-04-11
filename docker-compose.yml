@@ -152,7 +152,7 @@ services:
       - PEERPORT=${TRANSMISSION_CONNECTION_PORT}
     volumes:
       - ${DOCKER_CONFIG_DIR}/transmission/config:/config
-      - ${TORRENTS_BASE_DIR}
+      - ${BASE_DIR}
     restart: unless-stopped
 
   sabnzbd:

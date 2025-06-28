@@ -1,0 +1,83 @@
+{
+  "user": {
+    "user-id": 0,
+    "group-id": 3
+  },
+  "install": [
+    {
+      "category": "development",
+      "source": "apt",
+      "packages": [
+        "build-essential",
+        "pkg-config",
+        "libssl-dev",
+        "curl",
+        "wget",
+        "file",
+        "git",
+        "unzip"
+      ]
+    },
+    {
+      "category": "tauri-gtk-dependencies",
+      "source": "apt",
+      "packages": [
+        "libglib2.0-dev",
+        "libgtk-3-dev",
+        "libwebkit2gtk-4.0-dev",
+        "libappindicator3-dev",
+        "librsvg2-dev",
+        "libsoup2.4-dev",
+        "libjavascriptcoregtk-4.0-dev",
+        "patchelf"
+      ]
+    },
+    {
+      "category": "node",
+      "source": "apt",
+      "packages": [
+        "nodejs"
+      ]
+    },
+    {
+      "category": "python",
+      "source": "apt",
+      "packages": [
+        "python3",
+        "python3-pip",
+        "python3-setuptools",
+        "python3-venv"
+      ]
+    },
+    {
+      "category": "container-tools",
+      "source": "script",
+      "packages": [
+        "docker-cli"
+      ]
+    },
+    {
+      "category": "github",
+      "source": "script",
+      "packages": [
+        "github-cli"
+      ]
+    },
+    {
+      "category": "rust",
+      "source": "script",
+      "packages": [
+        "rust"
+      ]
+    },
+    {
+      "category": "network-tools",
+      "source": "apt",
+      "packages": [
+        "inetutils-ping",
+        "openssh-client",
+        "rsync"
+      ]
+    }
+  ]
+}

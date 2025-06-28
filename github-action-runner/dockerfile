@@ -1,0 +1,52 @@
+# Use the existing GitHub runner as base
+FROM myoung34/github-runner:latest
+
+# Install Tauri dependencies for Ubuntu 20.04 (Focal)
+RUN apt-get update && apt-get install -y \
+    # Core system packages
+    build-essential \
+    curl \
+    wget \
+    file \
+    libssl-dev \
+    pkg-config \
+    # GTK and WebKit packages (Ubuntu 20.04 versions)
+    libwebkit2gtk-4.0-dev \
+    libappindicator3-dev \
+    librsvg2-dev \
+    patchelf \
+    # GLib and related (Ubuntu 20.04 versions)
+    libglib2.0-dev \
+    libgtk-3-dev \
+    libsoup2.4-dev \
+    libjavascriptcoregtk-4.0-dev \
+    # Additional development tools
+    git \
+    unzip \
+    && rm -rf /var/lib/apt/lists/* \
+    && ldconfig
+
+# Install Node.js (latest LTS)
+RUN curl -fsSL https://deb.nodesource.com/setup_lts.x | bash - \
+    && apt-get install -y nodejs
+
+# Install pnpm globally
+RUN npm install -g pnpm@10.7.0
+
+# Install Rust
+RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y \
+    && . ~/.cargo/env \
+    && rustup default stable
+
+# Add Rust to PATH for all users
+ENV PATH="/root/.cargo/bin:${PATH}"
+
+# Verify installations
+RUN echo "=== Verification ===" \
+    && node --version \
+    && npm --version \
+    && pnpm --version \
+    && rustc --version \
+    && cargo --version \
+    && pkg-config --version \
+    && pkg-config --exists glib-2.0 && echo "✅ glib-2.0 found" || echo "❌ glib-2.0 not found"

@@ -154,7 +154,8 @@ services:
       - ${DOCKER_CONFIG_DIR}/transmission/config:/config
       - ${BASE_DIR}
     restart: unless-stopped
-
+  
+  # Only required if you want to use Usenet
   sabnzbd:
     image: lscr.io/linuxserver/sabnzbd:latest
     container_name: sabnzbd
@@ -172,7 +173,7 @@ services:
       - ${SABNZBD}:${SABNZBD}
     restart: unless-stopped
 
-## aars ##
+  ## aars ##
 
   prowlarr:
     container_name: prowlarr
@@ -252,7 +253,8 @@ services:
       - TZ=${TZ}
     ports:
       - ${TAUTULLI_PORT}:8181
-
+  
+  # Not required for PLEX media server
   scrutiny:
     container_name: scrutiny
     image: ghcr.io/analogj/scrutiny:master-omnibus
@@ -277,9 +279,12 @@ services:
       - SCRUTINY_WEB_INFLUXDB_INIT_USERNAME=${SCRUTINY_WEB_INFLUX_DB_INIT_USERNAME}
       - SCRUTINY_WEB_INFLUXDB_INIT_PASSWORD=${SCRUTINY_WEB_INFLUX_DB_INIT_PASSWORD}
     restart: unless-stopped
-
+  
+  # Not required for PLEX media server
   github-action-runner:
-    image: myoung34/github-runner:latest
+    build:
+      context: .
+      dockerfile: ./github-action-runner/dockerfile
     container_name: github-actions-runner
     environment:
       REPO_URL: https://github.com/Bytefolio/bytefolio-app

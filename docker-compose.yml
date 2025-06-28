@@ -286,11 +286,12 @@ services:
       RUNNER_NAME: nas-runner
       RUNNER_WORKDIR: /tmp/runner/work
       RUNNER_SCOPE: repo
-      CONFIGURED_ACTIONS_RUNNER_FILES_DIR: /runner/data
+      #CONFIGURED_ACTIONS_RUNNER_FILES_DIR: /runner/data
       ACCESS_TOKEN: ${GITHUB_ACTION_RUNNER_PAT} # The RUNNER_TOKEN is automatically generated from this on container start
       LABELS: self-hosted,nas,docker
       RUN_AS_ROOT: true
       EPHEMERAL: true
+      DISABLE_AUTOMATIC_DEREGISTRATION: true
       
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
@@ -302,5 +303,8 @@ services:
     deploy:
       resources:
         limits:
-          memory: 2G
-          cpus: '1.0'
+          memory: 8G
+          cpus: '4.0'
+        reservations:
+          cpus: '2.0'
+          memory: 4G
